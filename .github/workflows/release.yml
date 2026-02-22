@@ -1,0 +1,33 @@
+﻿name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Publish
+        run: dotnet publish IosScreenCaptureTool/IosScreenCaptureTool.csproj -c Release -r win-x64 --self-contained false -o artifacts/publish
+
+      - name: Package
+        run: Compress-Archive -Path artifacts/publish/* -DestinationPath artifacts/IosScreenCaptureTool-win-x64.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/IosScreenCaptureTool-win-x64.zip
