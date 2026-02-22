@@ -19,7 +19,7 @@ using WpfColor = System.Windows.Media.Color;
 
 public partial class MainWindow : Window
 {
-    private const string defaultAppTitle = "iOS Live Stream";
+    private const string defaultAppTitle = "iOS Screen Capture Tool";
     private const string defaultPipeName = "IosScreenCaptureTool.CommandPipe.v1";
 
     private readonly SemaphoreSlim frameAccessSemaphore = new(1, 1);
