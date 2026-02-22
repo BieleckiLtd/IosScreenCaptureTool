@@ -17,33 +17,20 @@ Mirror your iPhone or iPad screen on your Windows PC over USB - no extra softwar
 
 ## Setup
 
-**What you need:** a Windows 10 or later PC, a Lightning or USB-C cable, and your iPhone or iPad wit Developer mode (see below how to turn it on).
+**What you need:** a Windows 10 or later PC, a Lightning or USB-C cable, and your iPhone or iPad with Developer Mode enabled (see below how to turn it on).
 
-**Step 1 - Install the free .NET 10 runtime** (one-time setup):
+**Step 1 - Download the app:**
 
-```powershell
-winget install Microsoft.DotNet.Runtime.10
-```
+Download the latest `IosScreenCaptureTool-win-x64.zip` from the [Releases](https://github.com/BieleckiLtd/IosScreenCaptureTool/releases) page, extract all files to a folder, and run `IosScreenCaptureTool.exe`. No additional runtime installation is required.
 
-or if you don't have winget:
-```powershell
-Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://dot.net/v1/dotnet-install.ps1')
-```
-
-or if you prefer to install manually, download NET Desktop Runtime from https://dotnet.microsoft.com/en-us/download/dotnet/10.0 and run the installer.
-
-**Step 2 - Download the app:**
-
-Download the latest `IosScreenCaptureTool-win-x64.zip` from the [Releases](https://github.com/BieleckiLtd/IosScreenCaptureTool/releases) page, extract all files to a folder, and run `IosScreenCaptureTool.exe`.
-
-Or run from source:
+Or run from source (requires the [.NET 10 SDK](https://dotnet.microsoft.com/download)):
 
 ```powershell
 git clone https://github.com/BieleckiLtd/IosScreenCaptureTool.git
 cd IosScreenCaptureTool
 ```
 
-**Step 3 - Turn on Developer Mode on the device** (iOS 16 or later, one-time setup):
+**Step 2 - Turn on Developer Mode on the device** (iOS 16 or later, one-time setup):
 
 Screen capture uses Apple's Developer Tools services on the device. Starting with iOS 16, those services only work when Developer Mode is switched on. **This must be done once before the app can stream.** Until it is on, the app will find your device and open a tunnel but every frame capture will fail.
 
@@ -58,16 +45,16 @@ Screen capture uses Apple's Developer Tools services on the device. Starting wit
 The Developer Mode toggle is hidden from Settings until a development tool requests it. To make it appear, the app sends that request automatically on first connection - but you still need to go into Settings and flip the switch yourself.
 
 1. Make sure your device is plugged in and unlocked.
-2. Start the app (Step 5 below) and wait a few seconds while it connects.
+2. Start the app (Step 4 below) and wait a few seconds while it connects.
 3. On the device, open **Settings → Privacy & Security**.
 4. Scroll to the bottom - **Developer Mode** should now be listed.
 5. Tap **Developer Mode**, toggle it on, and tap **Restart**.
 6. After the device reboots, unlock it and tap **Turn On** when the confirmation dialog appears.
 7. Reconnect the cable if needed - the app will pick up the stream automatically.
 
-**Step 4 - Plug in your iPhone or iPad**, unlock it, and tap **Trust This Computer** if a prompt appears on the device.
+**Step 3 - Plug in your iPhone or iPad**, unlock it, and tap **Trust This Computer** if a prompt appears on the device.
 
-**Step 5 - Start the app:**
+**Step 4 - Start the app:**
 
 ```powershell
 dotnet run --project IosScreenCaptureTool
