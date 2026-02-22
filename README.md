@@ -117,7 +117,7 @@ dotnet run --project IosScreenCaptureTool -- --capture-frame .\check.png
 - **Visual regression in CI** - capture before and after a build, compare with an AI or diff tool.
 - **Hands-free QA** - the agent flags anything unexpected on the device screen without a human ever looking.
 
-> **Important:** the app must already be running before you call `--capture-frame`. Start it once (or set it to start with Windows) and leave it in the tray.
+> **Important:** the app must already be running before you call `--capture-frame`. The first launch requires a UAC prompt, so headless agents (Codex, Copilot, etc.) cannot start it on their own. Start it manually once (or set it to start with Windows) and leave it in the tray.
 
 ### One-shot test without opening the window
 
@@ -125,6 +125,12 @@ Use this to confirm the device connection is working in one command, then exit:
 
 ```powershell
 dotnet run --project IosScreenCaptureTool -- --self-test .\screenshots\test.png
+```
+
+If you downloaded the release `.exe` instead of running from source:
+
+```powershell
+.\IosScreenCaptureTool.exe --self-test .\screenshots\test.png
 ```
 
 Exit code `0` means a real frame was successfully captured. Useful as a health-check at the start of a CI pipeline before longer automation begins.
