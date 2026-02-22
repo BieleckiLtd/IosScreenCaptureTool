@@ -34,8 +34,12 @@ or if you prefer to install manually, download NET Desktop Runtime from https://
 
 **Step 2 - Download the app:**
 
+Download the latest `IosScreenCaptureTool-win-x64.zip` from the [Releases](https://github.com/BieleckiLtd/IosScreenCaptureTool/releases) page, extract all files to a folder, and run `IosScreenCaptureTool.exe`.
+
+Or run from source:
+
 ```powershell
-git clone https://github.com/<owner>/IosScreenCaptureTool.git
+git clone https://github.com/BieleckiLtd/IosScreenCaptureTool.git
 cd IosScreenCaptureTool
 ```
 
