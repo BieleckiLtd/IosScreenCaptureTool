@@ -31,10 +31,10 @@ jobs:
         run: dotnet restore
 
       - name: Publish
-        run: dotnet publish IosScreenCaptureTool/IosScreenCaptureTool.csproj -c Release -r win-x64 --self-contained true -p:DebugType=none -p:DebugSymbols=false -o artifacts/publish
+        run: dotnet publish IosScreenCaptureTool/IosScreenCaptureTool.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=none -p:DebugSymbols=false -o artifacts/publish
 
       - name: Package
-        run: Compress-Archive -Path artifacts/publish/* -DestinationPath artifacts/IosScreenCaptureTool-win-x64.zip
+        run: Compress-Archive -Path artifacts/publish/IosScreenCaptureTool.exe -DestinationPath artifacts/IosScreenCaptureTool-win-x64.zip
 
       - name: Upload release asset
         uses: softprops/action-gh-release@v2
