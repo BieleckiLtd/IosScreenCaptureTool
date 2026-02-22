@@ -56,6 +56,14 @@ The Developer Mode toggle is hidden from Settings until a development tool reque
 
 **Step 4 - Start the app:**
 
+If you downloaded the release zip:
+
+```powershell
+.\IosScreenCaptureTool.exe
+```
+
+If you are running from source:
+
 ```powershell
 dotnet run --project IosScreenCaptureTool
 ```
@@ -81,9 +89,13 @@ Minimize or close the window and the app continues running in the notification a
 
 ### Capture a screenshot from the command line
 
-While the app is running (window or tray), open any terminal - even a non-Administrator one - and run:
+While the app is running (window or tray), open any terminal — even a non-Administrator one — and run:
 
 ```powershell
+# release exe
+.\IosScreenCaptureTool.exe --capture-frame .\screenshots\frame.png
+
+# from source
 dotnet run --project IosScreenCaptureTool -- --capture-frame .\screenshots\frame.png
 ```
 
@@ -96,8 +108,12 @@ The file is written within milliseconds. The folder is created automatically if 
 Because `--capture-frame` is a plain command-line call that writes an image file, any AI tool that can run a process and read a file can use it to *see* the device screen.
 
 ```powershell
-# Call this from a GitHub Copilot agent, Claude tool-use, a Codex function, a CI step, or any script:
+# release exe
+.\IosScreenCaptureTool.exe --capture-frame .\check.png
+
+# from source
 dotnet run --project IosScreenCaptureTool -- --capture-frame .\check.png
+
 # → hand check.png to the AI and ask it what it sees
 ```
 
@@ -115,13 +131,11 @@ dotnet run --project IosScreenCaptureTool -- --capture-frame .\check.png
 Use this to confirm the device connection is working in one command, then exit:
 
 ```powershell
-dotnet run --project IosScreenCaptureTool -- --self-test .\screenshots\test.png
-```
-
-If you downloaded the release `.exe` instead of running from source:
-
-```powershell
+# release exe
 .\IosScreenCaptureTool.exe --self-test .\screenshots\test.png
+
+# from source
+dotnet run --project IosScreenCaptureTool -- --self-test .\screenshots\test.png
 ```
 
 Exit code `0` means a real frame was successfully captured. Useful as a health-check at the start of a CI pipeline before longer automation begins.
