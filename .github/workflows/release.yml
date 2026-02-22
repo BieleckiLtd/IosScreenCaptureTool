@@ -1,9 +1,9 @@
 ﻿name: Release
 
 on:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [published]
+  workflow_dispatch:
 
 jobs:
   release:
@@ -27,7 +27,7 @@ jobs:
       - name: Package
         run: Compress-Archive -Path artifacts/publish/* -DestinationPath artifacts/IosScreenCaptureTool-win-x64.zip
 
-      - name: Create GitHub Release
+      - name: Upload release asset
         uses: softprops/action-gh-release@v2
         with:
           files: artifacts/IosScreenCaptureTool-win-x64.zip
