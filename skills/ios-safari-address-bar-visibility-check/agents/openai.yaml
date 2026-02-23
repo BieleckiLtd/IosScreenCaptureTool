@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Safari Address Bar Visibility Check"
+  short_description: "Detect whether address-bar area is visually blocked or clean, including cutoff and overlay cases."
+  default_prompt: "Use this skill to deterministically analyze Safari address-bar visibility from screenshot pixels. For the typical pass/fail policy, use --decision-mode address_bar_overlay_or_cutoff and report detected plus key metrics."

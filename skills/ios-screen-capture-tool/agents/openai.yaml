@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Screen Capture Tool"
+  short_description: "Capture a real iOS screenshot from Windows over USB."
+  default_prompt: "Use this skill to capture a fresh iOS screenshot with IosScreenCaptureTool, validate the file, and then analyze the captured image."
