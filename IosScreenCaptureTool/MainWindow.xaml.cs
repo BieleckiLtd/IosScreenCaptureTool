@@ -482,27 +482,7 @@ public partial class MainWindow : Window
         PipeCommandResponse response = await SaveCurrentFrameAsync(outputPath, CancellationToken.None);
         if (response.Success)
         {
-            try
-            {
-                BitmapImage bitmap = new();
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.UriSource = new Uri(outputPath);
-                bitmap.DecodePixelWidth = 100;
-                bitmap.EndInit();
-                bitmap.Freeze();
-
-                CapturedFrames.Insert(0, new CapturedFrame
-                {
-                    FilePath = outputPath,
-                    Thumbnail = bitmap
-                });
-            }
-            catch
-            {
-                // Ignore thumbnail creation errors
-            }
-
+            await AddCapturedFrameAsync(outputPath);
             return;
         }
 
@@ -644,7 +624,53 @@ public partial class MainWindow : Window
             return new PipeCommandResponse(false, "Output path is required.");
         }
 
-        return await SaveCurrentFrameAsync(request.OutputPath, cancellationToken);
+        PipeCommandResponse response = await SaveCurrentFrameAsync(request.OutputPath, cancellationToken);
+        if (response.Success)
+        {
+            string capturedPath = string.IsNullOrWhiteSpace(response.Message)
+                ? Path.GetFullPath(request.OutputPath)
+                : response.Message;
+
+            await AddCapturedFrameAsync(capturedPath);
+        }
+
+        return response;
+    }
+
+    private async Task AddCapturedFrameAsync(string filePath)
+    {
+        string absolutePath = Path.GetFullPath(filePath);
+
+        await Dispatcher.InvokeAsync(() =>
+        {
+            if (CapturedFrames.Any(frame => string.Equals(frame.FilePath, absolutePath, StringComparison.OrdinalIgnoreCase)))
+            {
+                return;
+            }
+
+            ImageSource? thumbnail = null;
+            try
+            {
+                BitmapImage bitmap = new();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.UriSource = new Uri(absolutePath);
+                bitmap.DecodePixelWidth = 100;
+                bitmap.EndInit();
+                bitmap.Freeze();
+                thumbnail = bitmap;
+            }
+            catch
+            {
+                // Ignore thumbnail creation errors
+            }
+
+            CapturedFrames.Insert(0, new CapturedFrame
+            {
+                FilePath = absolutePath,
+                Thumbnail = thumbnail
+            });
+        }, DispatcherPriority.Background);
     }
 
     private async Task<PipeCommandResponse> SaveCurrentFrameAsync(string outputPath, CancellationToken cancellationToken)

@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Visual Verification Workflow"
+  short_description: "Capture and verify real iOS UI states"
+  default_prompt: "Use $ios-visual-verification-workflow to capture fresh iOS screenshots and verify UI state with strict PASS/FAIL evidence."

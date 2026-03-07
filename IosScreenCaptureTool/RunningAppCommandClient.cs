@@ -52,7 +52,7 @@ internal static class RunningAppCommandClient
         }
         catch (TimeoutException)
         {
-            Console.Error.WriteLine("Running app was not found. Start iOS Live Stream first.");
+            Console.Error.WriteLine("Running app was not found. Start iOS Screen Capture Tool first.");
             return 1;
         }
         catch (UnauthorizedAccessException)

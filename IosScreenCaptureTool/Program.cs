@@ -10,7 +10,7 @@ internal static class Program
 internal static class ProgramEntry
 {
     private const string commandPipeName = "IosScreenCaptureTool.CommandPipe.v1";
-    private const string appTitle = "iOS Live Stream";
+    private const string appTitle = "iOS Screen Capture Tool";
 
     public static async Task<int> RunAsync(string[] args)
     {
@@ -114,7 +114,7 @@ internal static class ProgramEntry
 
     private static void PrintUsage()
     {
-        Console.WriteLine("iOS Live Stream Utility");
+        Console.WriteLine("iOS Screen Capture Tool");
         Console.WriteLine("Usage:");
         Console.WriteLine("  IosScreenCaptureTool");
         Console.WriteLine("  IosScreenCaptureTool --start-minimized");
